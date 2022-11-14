@@ -11,7 +11,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-
+import pandas as pd
 
 def pregunta_01():
     """
@@ -21,7 +21,8 @@ def pregunta_01():
     214
 
     """
-    return
+    c = pd.read_csv('data.csv', header=0, sep='tab')
+    return c
 
 
 def pregunta_02():
