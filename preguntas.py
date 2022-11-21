@@ -184,7 +184,35 @@ def pregunta_05():
     ]
 
     """
-    return
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\n", "") for z in x]
+    x = [data.split("\t") for data in x]
+    x = [(data[0],int(data[1])) for data in x]
+    x = sorted(x,key=itemgetter(0))
+    tuples = []
+    previous_key = None
+    i = 0
+    nums = []
+    while(True):
+        key, value = x[i]
+        if previous_key is None:
+            previous_key = key
+        if key != previous_key:
+            minimo = min(nums)
+            maximo = max(nums)
+            tuples.append((previous_key, maximo, minimo))
+            previous_key = key
+            nums = []
+            nums.append(value)
+        else:
+            nums.append(value)
+        i += 1
+        if i == len(x):
+            minimo = min(nums)
+            maximo = max(nums)
+            tuples.append((previous_key, maximo, minimo))
+            break
+    return tuples
 
 
 def pregunta_06():
