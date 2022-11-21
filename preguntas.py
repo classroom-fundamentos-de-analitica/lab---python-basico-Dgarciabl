@@ -461,7 +461,33 @@ def pregunta_11():
 
 
     """
-    return
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\n", "") for z in x]
+    x = [data.split("\t") for data in x]
+    x = [(data[3].split(","),int(data[1])) for data in x]
+    valores = []
+    for letras,valor in x:
+        [valores.append((str(letra),valor)) for letra in letras]
+    x = sorted(valores,key=itemgetter(0))
+    valores = {}
+    previous_key = None
+    a = 0
+    i = 0
+    while(True):
+        key, value = x[i]
+        if previous_key is None:
+            previous_key = key
+        if key != previous_key:
+            valores[previous_key] = a
+            previous_key = key
+            a = value
+        else:
+            a += value
+        i += 1
+        if i == len(x):
+            valores[previous_key] = a
+            break
+    return valores
 
 
 def pregunta_12():
