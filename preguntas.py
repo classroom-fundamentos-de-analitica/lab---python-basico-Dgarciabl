@@ -21,9 +21,11 @@ def pregunta_01():
     214
 
     """
-    c = pd.read_csv('data.csv', header=0, sep='tab')
-    return c
-
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\n", "") for z in x]
+    x = [data.split("\t") for data in x]
+    
+    return sum([int(data[1]) for data in x])
 
 def pregunta_02():
     """
