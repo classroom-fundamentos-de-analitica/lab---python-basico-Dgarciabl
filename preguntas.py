@@ -437,7 +437,10 @@ def pregunta_10():
 
 
     """
-    return
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\n", "") for z in x]
+    x = [data.split("\t") for data in x]
+    return [(data[0],len(data[3].split(",")),len(data[4].split(","))) for data in x]
 
 
 def pregunta_11():
