@@ -11,7 +11,6 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-import pandas as pd
 
 def pregunta_01():
     """
@@ -26,6 +25,16 @@ def pregunta_01():
     x = [data.split("\t") for data in x]
     
     return sum([int(data[1]) for data in x])
+
+def itemgetter(*items):
+    if len(items) == 1:
+        item = items[0]
+        def g(obj):
+            return obj[item]
+    else:
+        def g(obj):
+            return tuple(obj[item] for item in items)
+    return g
 
 def pregunta_02():
     """
@@ -42,7 +51,31 @@ def pregunta_02():
     ]
 
     """
-    return
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\n", "") for z in x]
+    x = [data.split("\t") for data in x]
+    x = [data[0] for data in x]
+    x = [(letra,1) for letra in x]
+    x = sorted(x,key=itemgetter(0))
+    tuples = []
+    previous_key = None
+    acum = 0
+    i = 0
+    while(True):
+        key, value = x[i]
+        if previous_key is None:
+            previous_key = key
+        if key != previous_key:
+            tuples.append((previous_key,acum))
+            previous_key = key
+            acum = value
+        else:
+            acum += value
+        i += 1
+        if i == len(x):
+            tuples.append((previous_key,acum))
+            break
+    return(tuples)
 
 
 def pregunta_03():
